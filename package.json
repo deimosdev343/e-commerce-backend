@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --import=tsx --watch index.ts",
-    "prod": "node --import=tsx index.ts"
+    "prod": "node --import=tsx index.ts",
+    "tsc":""
   },
   "author": "",
   "license": "ISC",
