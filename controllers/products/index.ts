@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-export async function  getProducts(req:Request, res: Response) {
+export async function  getProducts(req: Request, res: Response) {
   try {
     
   } catch (err) {
