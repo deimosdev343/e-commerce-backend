@@ -6,7 +6,7 @@ ProductRouter.get('/', (req, res) => {
 })
 
 ProductRouter.get("/:id", (req, res) => {
-res.send("TEST GET :ID");
+  res.send("TEST GET :ID");
 });
 
 ProductRouter.post("/", (req, res) => {
