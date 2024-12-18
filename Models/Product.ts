@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 interface IProduct {
-  id: string;
+  _id: string;
   name: string;
   description: string;
   image: string;
@@ -9,7 +9,6 @@ interface IProduct {
 }
 
 const productSchema = new mongoose.Schema<IProduct>({
-  id: {type: String, required: true},
   name: {type: String, required: true},
   description: {type: String, required: true},
   image: {type: String},
