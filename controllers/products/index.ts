@@ -12,7 +12,13 @@ export async function  getProducts(req: Request, res: Response) {
 
 export async function getProductId(req: Request, res: Response) {
   try {
-    res.status(200).json({msg:"Test"});
+    const {id} = req.query;
+
+    const product = await Product.findById(id);
+    if(!product) {
+      return res.status(401).json({msg:"Product not found"});
+    }
+    res.status(200).json(product);
   } catch (err) {
     console.log(err);
     res.status(500).json("Internal server Error");
