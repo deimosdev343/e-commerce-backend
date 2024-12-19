@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import Product from '../../Models/Product';
 
-export async function  getProducts(req: Request, res: Response) {
+export async function  getProducts(req: Request, res: Response): Promise<any> {
   try {
     res.status(200).json({msg:"Test"})
   } catch (err) {
@@ -10,7 +10,7 @@ export async function  getProducts(req: Request, res: Response) {
   }
 }
 
-export async function getProductId(req: Request, res: Response) {
+export async function getProductId(req: Request, res: Response): Promise<any> {
   try {
     const {id} = req.query;
 
@@ -44,7 +44,7 @@ export async function createProduct(req: Request, res: Response): Promise<any> {
 }
 
 
-export async function editProduct(req: Request, res: Response) {
+export async function editProduct(req: Request, res: Response):Promise<any> {
   try {
     res.status(200).json({msg:"Test"});
   } catch (err) {
@@ -54,9 +54,15 @@ export async function editProduct(req: Request, res: Response) {
 }
 
 
-export async function deleteProduct(req: Request, res: Response) {
+export async function deleteProduct(req: Request, res: Response):Promise<any> {
   try {
-    res.status(200).json({msg:"Test"});
+    const {id} = req.query;
+    const product = await Product.findById(id);
+    if(!product) {
+      return res.status(401).json({msg:"Product Not Found"});
+    }
+    await Product.findByIdAndDelete(id);
+    res.status(200).json({msg:"Product Sucessfully deleted"});
   } catch (err) {
     console.log(err);
     res.status(500).json("Internal server Error");
