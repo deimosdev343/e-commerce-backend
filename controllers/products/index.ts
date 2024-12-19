@@ -3,7 +3,9 @@ import Product from '../../Models/Product';
 
 export async function  getProducts(req: Request, res: Response): Promise<any> {
   try {
-    res.status(200).json({msg:"Test"})
+    let {limit} = req.query;
+    const products = await Product.find({}).limit(Number(limit) || 10);
+    res.status(200).json(products);
   } catch (err) {
     console.log(err);
     res.status(500).send("Internal Server Error");
