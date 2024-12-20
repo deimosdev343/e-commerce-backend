@@ -2,7 +2,7 @@ import express, { json, urlencoded } from "express";
 import dotenv from 'dotenv';
 import ProductRouter from "./routes/products/ProductRouter";
 import { connection } from "./db/connection";
-
+ 
 dotenv.config();
 
 const port = process.env.PORT || 8000;
