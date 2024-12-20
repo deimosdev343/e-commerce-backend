@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 interface IOrder {
-  _id: string,
   orderId: string,
   productId: string,
   quantity: Number,

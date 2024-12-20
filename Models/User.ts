@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 interface IUser {
-  _id: string, 
   email: string,
   password: string,
   role: string,
