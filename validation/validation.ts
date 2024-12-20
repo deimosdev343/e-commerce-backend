@@ -8,6 +8,13 @@ export const productValidation = z.object({
   price: z.number()
 });
 
+export const productEditValid = z.object({
+  id: z.string(),
+  name: z.string(),
+  description: z.string(),
+  image: z.string(),
+  price: z.number()
+})
 
 export function validateData(schema: z.ZodObject<any, any>) {
   return (req: Request, res: Response, next: NextFunction) => {

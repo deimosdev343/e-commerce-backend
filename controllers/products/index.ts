@@ -55,6 +55,9 @@ export async function editProduct(req: Request, res: Response):Promise<any> {
       image,
       price
     } = req.body;
+    if(id.length < 1) {
+      return res.status(401).json({msg:"Id cannot be null"});
+    }
     const product = await Product.findById(id);
     if(!product) {
       return res.status(401).json({msg:"Product Not Found"});

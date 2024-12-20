@@ -1,4 +1,4 @@
-import { productValidation, validateData } from '../../validation/validation';
+import { productEditValid, productValidation, validateData } from '../../validation/validation';
 import { createProduct, deleteProduct, editProduct, getProductId, getProducts } from '../../controllers/products';
 import { Router } from 'express';
 const ProductRouter = Router();
@@ -9,7 +9,10 @@ ProductRouter.post('/',
   validateData(productValidation),
   createProduct
 );
-ProductRouter.put('/', editProduct);
+ProductRouter.put('/',
+  validateData(productEditValid),
+  editProduct
+);
 ProductRouter.delete('/', deleteProduct);
 
 
