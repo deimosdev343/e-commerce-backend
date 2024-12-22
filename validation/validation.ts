@@ -16,6 +16,13 @@ export const productEditValid = z.object({
   price: z.number()
 })
 
+export const userValidation = z.object({
+  email: z.string().email(),
+  name: z.string(),
+  address: z.string(),
+  password: z.string().min(4) //cum in the name of piss
+});
+
 export function validateData(schema: z.ZodObject<any, any>) {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
