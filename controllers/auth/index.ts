@@ -11,7 +11,8 @@ export const registerUser = async (req: Request, res: Response) : Promise<any> =
       email,
       password:hashedPassword,
       name,
-      address
+      address,
+      role: "user"
     });
     await user.save();
     return res.status(201).json({msg: "User Successfully created"});
