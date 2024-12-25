@@ -2,6 +2,7 @@ import express, { json, urlencoded } from "express";
 import dotenv from 'dotenv';
 import ProductRouter from "./routes/products/ProductRouter";
 import { connection } from "./db/connection";
+import AuthRouter from "./routes/auth/AuthRouter";
  
 dotenv.config();
 
@@ -12,6 +13,7 @@ app.use(urlencoded({ extended: false }));
 app.use(json());
 
 app.use("/products", ProductRouter);
+app.use("/auth", AuthRouter);
 await connection();
 
 app.listen(port, () => {
