@@ -20,7 +20,12 @@ export const userValidation = z.object({
   email: z.string().email(),
   name: z.string(),
   address: z.string(),
-  password: z.string().min(4) //cum in the name of piss
+  password: z.string().min(4) //placeholder
+});
+
+export const loginValidation = z.object({
+  email: z.string(),
+  password: z.string()
 });
 
 export function validateData(schema: z.ZodObject<any, any>) {

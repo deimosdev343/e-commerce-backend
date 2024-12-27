@@ -17,6 +17,7 @@ const generateUserToken = (user: any) => {
 export const registerUser = async (req: Request, res: Response) : Promise<any> => {
   try {
     const {email, password, name, address} = req.body;
+  
     const hashedPassword = await bcrypt.hash(password, 10);
     const existingUser = await User.findOne({email});
     if(existingUser) {
