@@ -17,6 +17,7 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
     }
     req.userId = decoded.userId;
     req.role = decoded.role;
+    next();
   } catch (err) {
     res.status(500).json({msg:"Internal Server Error"});
   }
