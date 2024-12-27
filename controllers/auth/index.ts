@@ -1,6 +1,13 @@
 import { Router, Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import User from '../../Models/User';
+import jwt from 'jsonwebtoken';
+
+const generateUserToken = (user: any) => {
+  return jwt.sign({ userId: user.id, role: user.role }, 'your-secret', {
+    expiresIn: '30d',
+  });
+};
 
 
 export const registerUser = async (req: Request, res: Response) : Promise<any> => {
@@ -22,6 +29,15 @@ export const registerUser = async (req: Request, res: Response) : Promise<any> =
     return res.status(201).json({msg: "User Successfully created"});
   } catch (err) {
     console.log(err);
-    return res.status(500).json({msg:"You can't change current reality and the zone kick you out"});
+    return res.status(500).json({msg:"You can't change the current reality and the ZONE kick you out"});
   }
-} 
+}
+
+export const loginUser = async (req: Request, res: Response): Promise<any> => {
+  try {
+    
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({msg:""});
+  }
+}
