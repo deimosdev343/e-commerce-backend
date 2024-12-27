@@ -61,6 +61,7 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
 
   } catch (err) {
     console.log(err);
-    return res.status(500).json({msg:""});
+    return res.status(500).json({msg:"Internal Server Error"});
   }
 }
+
