@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 
-export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
-  const token = req.header('Authorization');
-
+export const verifyToken = async (req: Request, res: Response, next: NextFunction) : Promise<any> => {
+  const token = req.header('Authorization')?.split(" ")[1];
+  console.log(token);
   if(!token) {
     return res.status(401).json({msg:"Token Is Invalid"});
   }
@@ -19,6 +19,7 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
     req.role = decoded.role;
     next();
   } catch (err) {
+    console.log(err);
     res.status(500).json({msg:"Internal Server Error"});
   }
 }

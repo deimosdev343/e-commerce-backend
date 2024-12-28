@@ -8,7 +8,7 @@ dotenv.config();
 
 const generateUserToken = (user: any) => {
   const secret = String(process.env.JWT_SECRET);
-  return jwt.sign({ userId: user.id, role: user.role }, secret, {
+  return jwt.sign({ userId: user._id, role: user.role }, secret, {
     expiresIn: '30d',
   });
 };
@@ -66,3 +66,12 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
   }
 }
 
+export const authUser = async (req: Request, res: Response) : Promise<any> => {
+  try {
+    const user = await User.findById(req.userId);
+    return res.status(200).json(user);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({msg:"Internal Server Error"});
+  }
+}
