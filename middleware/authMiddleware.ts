@@ -2,6 +2,14 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
 
+export const verifySeller = async (req: Request, res: Response, next: NextFunction) : Promise<any> => {
+  const role = req.role;
+  if(role !== "seller") {
+    res.status(401).json({msg:"ТЕБЕ СЮДА НЕЛЬЗЯ!"})
+  }
+  next();
+}
+
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) : Promise<any> => {
   const token = req.header('Authorization')?.split(" ")[1];
   console.log(token);
