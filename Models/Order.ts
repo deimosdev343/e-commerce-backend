@@ -1,24 +1,17 @@
 import mongoose from "mongoose";
 
 interface IOrder {
-  orderId: string,
-  productId: string,
-  quantity: Number,
+  userId: string,
+  products: Array<any>,
   price: Number
 }
 
 const orderSchema = new mongoose.Schema<IOrder>({
-  orderId: {
+  userId: {
     type: String,
-    required: true
+    required: true,
   },
-  productId: {
-    type: String,
-    required: true
-  },
-  quantity: {
-    type: Number,
-  },
+  products: [],
   price: {
     type: Number
   }
