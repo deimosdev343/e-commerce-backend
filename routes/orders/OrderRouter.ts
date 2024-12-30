@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import { validateData, userValidation, loginValidation } from '../../validation/validation';
+import { validateData } from '../../validation/validation';
+import { verifyToken } from '../../middleware/authMiddleware';
 
 const OrderRouter = Router();
 

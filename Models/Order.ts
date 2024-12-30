@@ -1,8 +1,9 @@
 import mongoose from "mongoose";
+import { IProduct } from "./Product";
 
 interface IOrder {
   userId: string,
-  products: Array<any>,
+  products: Array<IProduct>,
   price: Number
 }
 

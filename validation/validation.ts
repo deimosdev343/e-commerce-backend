@@ -1,32 +1,13 @@
 import {Request, Response, NextFunction} from 'express';
 import {z, ZodError} from 'zod';
 
-export const productValidation = z.object({
-  name: z.string(),
-  description: z.string(),
-  image: z.string(),
-  price: z.number()
-});
 
-export const productEditValid = z.object({
-  id: z.string(),
-  name: z.string(),
-  description: z.string(),
-  image: z.string(),
-  price: z.number()
-})
-
-export const userValidation = z.object({
-  email: z.string().email(),
-  name: z.string(),
-  address: z.string(),
-  password: z.string().min(4) //placeholder
-});
 
 export const loginValidation = z.object({
   email: z.string(),
   password: z.string()
 });
+
 
 export function validateData(schema: z.ZodObject<any, any>) {
   return (req: Request, res: Response, next: NextFunction) => {
