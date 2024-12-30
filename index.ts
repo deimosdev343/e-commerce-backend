@@ -4,6 +4,7 @@ import { connection } from "./db/connection";
 import AuthRouter from "./routes/auth/AuthRouter";
 
 import dotenv from 'dotenv';
+import OrderRouter from "./routes/orders/OrderRouter";
 dotenv.config();
 
 
@@ -15,6 +16,7 @@ app.use(json());
 
 app.use("/products", ProductRouter);
 app.use("/auth", AuthRouter);
+app.use("/order", OrderRouter)
 await connection();
 
 app.listen(port, () => {
