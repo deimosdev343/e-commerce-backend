@@ -3,7 +3,7 @@ import { IProduct } from "./Product";
 
 interface IOrder {
   userId: string,
-  products: Array<IProduct>,
+  products: Array<any>, //What the fuck ever dude
   price: Number
 }
 

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import Order from '../../Models/Order';
 import { IProduct } from '../../Models/Product';
 
-export const createOrder = async (req: Request, res: Response) => {
+export const createOrder = async (req: Request, res: Response) : Promise<any> => {
    try {
     const {products} = req.body;
      let totalPrice = 0;
