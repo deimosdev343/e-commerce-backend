@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 export const verifySeller = async (req: Request, res: Response, next: NextFunction) : Promise<any> => {
   const role = req.role;
   if(role !== "seller") {
-    res.status(401).json({msg:"ТЕБЕ СЮДА НЕЛЬЗЯ!"})
+    return res.status(401).json({msg:"ТЕБЕ СЮДА НЕЛЬЗЯ!"})
   }
   next();
 }
