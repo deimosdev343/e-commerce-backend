@@ -8,6 +8,7 @@ import {z} from 'zod';
 
 export const categoryValidation = z.object({
   name: z.string(),
+  image: z.string()
 });
 
 const CategoryRouter = Router();
