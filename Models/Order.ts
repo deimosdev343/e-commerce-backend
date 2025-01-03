@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { IProduct } from "./Product";
 
 interface IOrder {
   userId: string,

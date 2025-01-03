@@ -14,6 +14,6 @@ const productSchema = new mongoose.Schema<IProduct>({
   image: {type: String},
   price: {type: Number, required: true},
   category: {type: String, required: true}
-});
+}, {timestamps: true});
 
 export default mongoose.model<IProduct>("product",productSchema) 
