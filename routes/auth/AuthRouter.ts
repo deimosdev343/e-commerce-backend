@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { validateData,  loginValidation } from '../../validation/validation';
 import { authUser, loginUser, registerUser } from '../../controllers/auth/index';
 import { verifyToken } from '../../middleware/authMiddleware';
-import {z, ZodError} from 'zod';
+import {z} from 'zod';
 
 const AuthRouter = Router();
 
