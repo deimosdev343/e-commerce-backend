@@ -14,6 +14,10 @@ export const getCategories = async (req: Request, res: Response) : Promise<any> 
 export const createCategory = async (req: Request, res: Response) : Promise<any> => {
   try {
     const {name} = req.body;
+    const existingCategory = await Category.findOne({name});
+    if(existingCategory) {
+      return res.status(401).json({msg:"Category already exists"});
+    }
     const category = new Category({name});
     await category.save();
     return res.status(200).json({msg:"Category Successfully created"});
