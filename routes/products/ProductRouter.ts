@@ -10,7 +10,8 @@ export const productValidation = z.object({
   name: z.string(),
   description: z.string(),
   image: z.string(),
-  price: z.number()
+  price: z.number(),
+  category: z.string()
 });
 
 export const productEditValid = z.object({
@@ -18,7 +19,8 @@ export const productEditValid = z.object({
   name: z.string(),
   description: z.string(),
   image: z.string(),
-  price: z.number()
+  price: z.number(),
+  category: z.string()
 })
 
 ProductRouter.get('/', getProducts);

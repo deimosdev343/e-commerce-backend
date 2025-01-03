@@ -33,10 +33,11 @@ export async function createProduct(req: Request, res: Response): Promise<any> {
       name, 
       description, 
       image,
-      price
+      price,
+      category
     } = req.body;
     
-    const product = new Product({name, description, image, price});
+    const product = new Product({name, description, image, price, category});
     await product.save();
     return res.status(200).json({msg:"Product Created"});
   } catch (err) {
@@ -53,7 +54,8 @@ export async function editProduct(req: Request, res: Response):Promise<any> {
       name, 
       description, 
       image,
-      price
+      price,
+      category
     } = req.body;
     if(id.length < 1) {
       return res.status(401).json({msg:"Id cannot be null"});
@@ -66,7 +68,8 @@ export async function editProduct(req: Request, res: Response):Promise<any> {
       name,
       description,
       image,
-      price
+      price,
+      category
     }});
 
     res.status(200).json({msg:"Product successfully updated"});
