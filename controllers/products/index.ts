@@ -3,8 +3,12 @@ import Product from '../../Models/Product';
 
 export async function  getProducts(req: Request, res: Response): Promise<any> {
   try {
-    let {limit} = req.query;
-    const products = await Product.find({}).limit(Number(limit) || 10);
+    let {limit, category} = req.query;
+    const query: {category?: string | undefined} = {};
+    if(category) {
+      query.category = String(category);
+    }
+    const products = await Product.find(query).limit(Number(limit) || 10);
     res.status(200).json(products);
   } catch (err) {
     console.log(err);
