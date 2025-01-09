@@ -8,7 +8,7 @@ export async function  getProducts(req: Request, res: Response): Promise<any> {
     if(category) {
       query.category = String(category);
     }
-    const products = await Product.find(query).limit(Number(limit) || 10);
+    const products = await Product.find(query).sort({timestamp :-1}).limit(Number(limit) || 10);
     res.status(200).json(products);
   } catch (err) {
     console.log(err);
