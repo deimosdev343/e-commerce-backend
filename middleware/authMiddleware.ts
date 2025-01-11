@@ -12,7 +12,6 @@ export const verifySeller = async (req: Request, res: Response, next: NextFuncti
 
 export const verifyToken = async (req: Request, res: Response, next: NextFunction) : Promise<any> => {
   const token = req.header('Authorization')?.split(" ")[1];
-  console.log(token);
   if(!token) {
     return res.status(401).json({msg:"Token Is Invalid"});
   }
