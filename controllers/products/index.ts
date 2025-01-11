@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Product from '../../Models/Product';
+import Category from '../../Models/Category';
 
 export async function  getProducts(req: Request, res: Response): Promise<any> {
   try {
@@ -40,6 +41,11 @@ export async function createProduct(req: Request, res: Response): Promise<any> {
       price,
       category
     } = req.body;
+    
+    const existingCategory = Category.findOne({name:category});
+    if(!existingCategory) {
+      return res.status(401).json({msg:"This category doesn't exist"});
+    }
     
     const product = new Product({name, description, image, price, category});
     await product.save();
