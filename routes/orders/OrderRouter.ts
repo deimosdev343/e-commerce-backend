@@ -13,6 +13,7 @@ const zodProductSchema = z.object({
   image: z.string(),
   price: z.number(),
 })
+
 const orderValidation = z.object({
   products: z.array(zodProductSchema),
 });
