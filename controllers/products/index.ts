@@ -39,7 +39,10 @@ export async function createProduct(req: Request, res: Response): Promise<any> {
       description, 
       image,
       price,
-      category
+      category,
+      extraImages,
+      colors,
+      sizes
     } = req.body;
     
     const existingCategory = Category.findOne({name:category});
@@ -47,7 +50,16 @@ export async function createProduct(req: Request, res: Response): Promise<any> {
       return res.status(401).json({msg:"This category doesn't exist"});
     }
     
-    const product = new Product({name, description, image, price, category});
+    const product = new Product({
+      name,
+      description,
+      image,
+      price,
+      category,
+      extraImages,
+      colors,
+      sizes
+    });
     await product.save();
     return res.status(200).json({msg:"Product Created"});
   } catch (err) {
@@ -65,7 +77,10 @@ export async function editProduct(req: Request, res: Response):Promise<any> {
       description, 
       image,
       price,
-      category
+      category,
+      extraImages,
+      colors,
+      sizes
     } = req.body;
     if(id.length < 1) {
       return res.status(401).json({msg:"Id cannot be null"});
@@ -79,7 +94,10 @@ export async function editProduct(req: Request, res: Response):Promise<any> {
       description,
       image,
       price,
-      category
+      category,
+      extraImages,
+      colors,
+      sizes
     }});
 
     res.status(200).json({msg:"Product successfully updated"});
