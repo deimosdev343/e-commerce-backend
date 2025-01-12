@@ -7,7 +7,8 @@ export interface IProduct {
   price: Number,
   category: string,
   colors: string[],
-  sizes: string[]
+  sizes: string[],
+  extraImages: string[]
 }
 
 const productSchema = new mongoose.Schema<IProduct>({
@@ -17,7 +18,9 @@ const productSchema = new mongoose.Schema<IProduct>({
   price: {type: Number, required: true},
   category: {type: String, required: true},
   sizes: {type: [{type: String}]},
-  colors: {type: [{type: String}]}
+  colors: {type: [{type: String}]},
+  extraImages: {type: [{type: String}]}
+  
 }, {timestamps: true});
 
 export default mongoose.model<IProduct>("product",productSchema) 
