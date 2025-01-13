@@ -30,7 +30,7 @@ export const productEditValid = z.object({
 })
 
 ProductRouter.get('/', getProducts);
-ProductRouter.get('/:id', getProductId);
+ProductRouter.get('/getProductById', getProductId);
 ProductRouter.post('/', 
   verifyToken,
   verifySeller,
