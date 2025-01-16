@@ -8,7 +8,6 @@ import OrderRouter from "./routes/orders/OrderRouter";
 import CategoryRouter from "./routes/category/CategoryRouter";
 dotenv.config();
 
-
 const port = process.env.PORT || 8000;
 
 const app = express();
@@ -19,6 +18,7 @@ app.use("/products", ProductRouter);
 app.use("/auth", AuthRouter);
 app.use("/order", OrderRouter);
 app.use("/category", CategoryRouter);
+
 await connection();
 
 app.listen(port, () => {
