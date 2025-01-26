@@ -7,7 +7,8 @@ export async function  getProducts(req: Request, res: Response): Promise<any> {
     let {limit, category, sortBy} = req.query;
 
     const sort: {
-      createdAt: 1 | -1
+      createdAt?: 1 | -1,
+      price?: 1 | -1
     } = {
       createdAt: -1
     }
@@ -20,7 +21,7 @@ export async function  getProducts(req: Request, res: Response): Promise<any> {
     }
     const products = await Product
       .find(query)
-      .sort({createdAt: sort.createdAt})
+      .sort(sort)
       .limit(Number(limit) || 10);
     res.status(200).json(products);
   } catch (err) {
