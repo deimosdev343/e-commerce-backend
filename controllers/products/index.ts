@@ -4,12 +4,24 @@ import Category from '../../Models/Category';
 
 export async function  getProducts(req: Request, res: Response): Promise<any> {
   try {
-    let {limit, category} = req.query;
-    const query: {category?: string | undefined} = {};
+    let {limit, category, sortBy} = req.query;
+
+    const sort: {
+      createdAt: 1 | -1
+    } = {
+      createdAt: -1
+    }
+    const query: {
+      category?: string | undefined,
+      name?: {"$regex": string | undefined, "$options":"i"} | undefined,
+    } = {};
     if(category) {
       query.category = String(category);
     }
-    const products = await Product.find(query).sort({timestamp :-1}).limit(Number(limit) || 10);
+    const products = await Product
+      .find(query)
+      .sort({createdAt: sort.createdAt})
+      .limit(Number(limit) || 10);
     res.status(200).json(products);
   } catch (err) {
     console.log(err);
