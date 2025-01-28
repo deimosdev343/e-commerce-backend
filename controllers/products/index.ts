@@ -4,7 +4,7 @@ import Category from '../../Models/Category';
 
 export async function  getProducts(req: Request, res: Response): Promise<any> {
   try {
-    let {limit, category, sortBy} = req.query;
+    let {limit, category, sortBy, name} = req.query;
 
     const sort: {
       createdAt?: 1 | -1,
@@ -18,6 +18,9 @@ export async function  getProducts(req: Request, res: Response): Promise<any> {
     } = {};
     if(category) {
       query.category = String(category);
+    }
+    if(name) {
+      query.name = {"$regex": String(name), "$options":"i"} 
     }
     const products = await Product
       .find(query)
