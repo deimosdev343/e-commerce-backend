@@ -2,11 +2,18 @@ import { Request, Response } from 'express';
 import Product from '../../Models/Product';
 import Category from '../../Models/Category';
 
+
+const sortOptions = {
+  "priceDesc":{price:-1},
+  "priceAsc":{price: 1},
+  "createdAtDesc":{createdAt:-1},
+  "createdAtAsc":{createdAt:1}
+}
 export async function  getProducts(req: Request, res: Response): Promise<any> {
   try {
     let {limit, category, sortBy, name} = req.query;
 
-    const sort: {
+    let sort: {
       createdAt?: 1 | -1,
       price?: 1 | -1
     } = {
@@ -22,6 +29,7 @@ export async function  getProducts(req: Request, res: Response): Promise<any> {
     if(name) {
       query.name = {"$regex": String(name), "$options":"i"} 
     }
+    
     const products = await Product
       .find(query)
       .sort(sort)

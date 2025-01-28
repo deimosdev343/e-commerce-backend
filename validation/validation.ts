@@ -26,3 +26,23 @@ export function validateData(schema: z.ZodObject<any, any>) {
     }
   };
 }
+
+export function validateQueryParams(schema: z.ZodObject<any, any>) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const params = schema.parse(req.query);
+      req.params = params;
+      next();
+    } catch (error) {
+      if (error instanceof ZodError) {
+        const errorMessages = error.errors.map((issue: any) => ({
+            message: `${issue.path.join('.')} is ${issue.message}`,
+        }))
+        res.status(401).json({ error: 'Invalid data', details: errorMessages });
+      } else {
+        console.log(error)
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+    }
+  };
+}

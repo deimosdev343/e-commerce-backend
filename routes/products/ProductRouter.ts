@@ -1,4 +1,4 @@
-import { validateData } from '../../validation/validation';
+import { validateData, validateQueryParams } from '../../validation/validation';
 import { createProduct, deleteProduct, editProduct, getProductId, getProducts } from '../../controllers/products';
 import { Router } from 'express';
 import { verifySeller, verifyToken } from '../../middleware/authMiddleware';
@@ -27,10 +27,20 @@ export const productEditValid = z.object({
   colors: z.array(z.string()),
   extraImages: z.array(z.string()),
   sizes: z.array(z.string())
+});
+
+export const productParamsSchema = z.object({
+  limit: z.number().catch(10), 
+  category: z.string().catch(""), 
+  sortBy: z.enum(["priceDesc","priceAsc","createdAtDesc","createdAtAsc"]).catch("createdAtDesc"), 
+  name:z.string().catch("")
 })
 
-ProductRouter.get('/', getProducts);
-ProductRouter.get('/getProductById', getProductId);
+ProductRouter.get('/',
+  validateQueryParams(productParamsSchema),
+  getProducts
+);
+ProductRouter.get('/getProductById',getProductId);
 ProductRouter.post('/', 
   verifyToken,
   verifySeller,
