@@ -29,6 +29,12 @@ export async function  getProducts(req: Request, res: Response): Promise<any> {
     if(name) {
       query.name = {"$regex": String(name), "$options":"i"} 
     }
+    if(sortBy == "createdAtAsc") sort = {createdAt: 1};
+    if(sortBy == "createdAtDesc") sort = {createdAt: -1};
+    if(sortBy == "priceAsc") sort = {price: 1};
+    if(sortBy == "priceDesc") sort = {price: -1};
+
+      
     
     const products = await Product
       .find(query)
