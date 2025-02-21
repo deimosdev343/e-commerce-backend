@@ -6,6 +6,7 @@ import AuthRouter from "./routes/auth/AuthRouter";
 import dotenv from 'dotenv';
 import OrderRouter from "./routes/orders/OrderRouter";
 import CategoryRouter from "./routes/category/CategoryRouter";
+import { initAdminFunc } from "./serivces/initAdmin";
 dotenv.config();
 
 const port = process.env.PORT || 8000;
@@ -13,7 +14,9 @@ const port = process.env.PORT || 8000;
 const app = express();
 app.use(urlencoded({ extended: false }));
 app.use(json());
-
+if(process.env.INIT_ADMIN == "true") {
+  initAdminFunc();
+}
 app.use("/products", ProductRouter);
 app.use("/auth", AuthRouter);
 app.use("/order", OrderRouter);
