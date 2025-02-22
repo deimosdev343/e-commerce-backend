@@ -69,7 +69,9 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
 export const authUser = async (req: Request, res: Response) : Promise<any> => {
   try {
     const user = await User.findById(req.userId);
-    return res.status(200).json(user);
+    return res.status(200).json({
+      user
+    });
   } catch (err) {
     console.log(err);
     return res.status(500).json({msg:"Internal Server Error"});
