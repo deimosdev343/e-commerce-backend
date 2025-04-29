@@ -12,9 +12,9 @@ export const productValidation = z.object({
   image: z.string(),
   price: z.number(),
   category: z.string(),
-  colors: z.array(z.string()),
+  colors: z.array(z.string()).min(1),
   extraImages: z.array(z.string()),
-  sizes: z.array(z.string())
+  sizes: z.array(z.string()).min(1),
 });
 
 export const productEditValid = z.object({
