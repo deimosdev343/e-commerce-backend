@@ -5,6 +5,8 @@ export interface IStat {
   type: "view" | "purchase",
   productId: string,
   purchaseId?: string,
+  ip?: string
+  
 }
 
 const statSchema = new mongoose.Schema<IStat>({
@@ -17,6 +19,9 @@ const statSchema = new mongoose.Schema<IStat>({
     required: true
   },
   purchaseId: {
+    type: String
+  },
+  ip: {
     type: String
   }
 })
