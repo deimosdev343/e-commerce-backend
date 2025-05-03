@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Product from '../../Models/Product';
 import Category from '../../Models/Category';
+import { createViewStatistic } from '../../serivces/Statistics/Statistics';
 
 
 const sortOptions = {
@@ -50,11 +51,17 @@ export async function  getProducts(req: Request, res: Response): Promise<any> {
 export async function getProductId(req: Request, res: Response): Promise<any> {
   try {
     const {id} = req.query;
-
+    
     const product = await Product.findById(id);
     if(!product) {
       return res.status(401).json({msg:"Product not found"});
     }
+    await createViewStatistic({
+      type: 'view',
+      productId: String(id),
+      ip: req.socket.remoteAddress
+    });
+
     res.status(200).json(product);
   } catch (err) {
     console.log(err);
