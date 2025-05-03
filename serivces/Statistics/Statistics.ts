@@ -9,3 +9,7 @@ export const createViewStatistic = async (stat :IStat) => {
   });
   await newStat.save();
 }
+
+export const createOrderStatistic = async (stat: IStat) => {
+
+}
