@@ -11,5 +11,6 @@ export const createViewStatistic = async (stat :IStat) => {
 }
 
 export const createOrderStatistic = async (stat: IStat) => {
-
+  const newstat = new Stat(stat);
+  await newstat.save();
 }
