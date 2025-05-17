@@ -24,6 +24,6 @@ const statSchema = new mongoose.Schema<IStat>({
   ip: {
     type: String
   }
-})
+}, {timestamps: true})
 
 export default mongoose.model<IStat>("Stat", statSchema);
