@@ -8,6 +8,7 @@ const OrderRouter = Router();
 
 
 const zodProductSchema = z.object({
+  id: z.string(),
   name: z.string(),
   description: z.string(),
   image: z.string(),
