@@ -15,6 +15,7 @@ export const createOrder = async (req: Request, res: Response) : Promise<any> =>
       products,
       price: totalPrice
     });
+    
     await order.save();
     return res.status(200).json({msg:"Order Successfully Created"})
    } catch (err) {

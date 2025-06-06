@@ -11,6 +11,11 @@ export const createViewStatistic = async (stat :IStat) => {
 }
 
 export const createOrderStatistic = async (stat: IStat) => {
-  const newstat = new Stat(stat);
+  const newstat = new Stat({
+    type:"purchase",
+    productId: stat.productId,
+    purchaseId: stat.purchaseId,
+    ip: stat.ip
+  });
   await newstat.save();
 }
