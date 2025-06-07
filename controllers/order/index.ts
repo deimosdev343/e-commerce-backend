@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 import Order from '../../Models/Order';
-import { IProduct } from '../../Models/Product';
+import { ICartProduct, IProduct } from '../../Models/Product';
 import { createOrderStatistic } from '../../serivces/Statistics/Statistics';
 
 export const createOrder = async (req: Request, res: Response) : Promise<any> => {
    try {
     const {products} = req.body;
      let totalPrice = 0;
-     products.forEach((prod: IProduct) => {
-      totalPrice = totalPrice + Number(prod.price);
+     products.forEach((prod: ICartProduct) => {
+      totalPrice = totalPrice + Number(prod.price)* Number(prod.amount);
      });
 
     const order = new Order({

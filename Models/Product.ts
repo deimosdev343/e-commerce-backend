@@ -1,5 +1,14 @@
 import mongoose from "mongoose";
 
+export interface ICartProduct {
+  name: string,
+  image: string,
+  price: Number,
+  color: string,
+  size: string,
+  amount: Number
+}
+
 export interface IProduct {
   name: string,
   description: string,

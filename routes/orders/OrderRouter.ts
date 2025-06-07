@@ -10,9 +10,11 @@ const OrderRouter = Router();
 const zodProductSchema = z.object({
   id: z.string(),
   name: z.string(),
-  description: z.string(),
   image: z.string(),
   price: z.number(),
+  amount: z.number(),
+  color: z.string(),
+  size: z.string()
 })
 
 const orderValidation = z.object({
