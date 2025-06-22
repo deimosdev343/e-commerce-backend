@@ -12,7 +12,6 @@ export const createOrder = async (req: Request, res: Response) : Promise<any> =>
      });
 
     const order = new Order({
-      userId: req.userId,
       products,
       price: totalPrice
     });
