@@ -7,6 +7,7 @@ import dotenv from 'dotenv';
 import OrderRouter from "./routes/orders/OrderRouter";
 import CategoryRouter from "./routes/category/CategoryRouter";
 import { initAdminFunc } from "./serivces/initAdmin";
+import StatsRouter from "./routes/stats/StatsRouter";
 dotenv.config();
 
 const port = process.env.PORT || 8000;
@@ -21,7 +22,7 @@ app.use("/products", ProductRouter);
 app.use("/auth", AuthRouter);
 app.use("/order", OrderRouter);
 app.use("/category", CategoryRouter);
-
+app.use("/stats", StatsRouter)
 await connection();
 
 app.listen(port, () => {
