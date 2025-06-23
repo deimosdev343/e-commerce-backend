@@ -10,3 +10,12 @@ export const getLatestViews = async (req:Request, res:Response): Promise<any> =>
     console.log(err);
   }
 }
+
+export const getLatestPurchases = async (req:Request, res:Response): Promise<any> => {
+  try {
+    const orders = await Stat.find({type:"purchase"}).sort({lastUpdateDate:"desc"}).limit(10).lean();
+    return res.status(200).json(orders);
+  } catch (err) {
+    console.log(err);
+  }
+}
