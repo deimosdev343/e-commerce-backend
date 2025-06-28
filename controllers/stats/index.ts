@@ -8,6 +8,8 @@ export const getLatestViews = async (req:Request, res:Response): Promise<any> =>
     
   } catch (err) {
     console.log(err);
+    return res.status(500).json({msg:"Unknown Error"});
+
   }
 }
 
@@ -17,5 +19,16 @@ export const getLatestPurchases = async (req:Request, res:Response): Promise<any
     return res.status(200).json(orders);
   } catch (err) {
     console.log(err);
+    return res.status(500).json({msg:"Unknown Error"});
+     
   }
+}
+
+export const getMostViewedProduct = async (req:Request, res:Response): Promise<any> => { 
+  try {
+    
+  } catch (err) {
+    
+  }
+
 }
