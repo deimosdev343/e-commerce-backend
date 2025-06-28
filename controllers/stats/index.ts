@@ -26,8 +26,16 @@ export const getLatestPurchases = async (req:Request, res:Response): Promise<any
 
 export const getMostViewedProduct = async (req:Request, res:Response): Promise<any> => { 
   try {
-    const productLookup = {}
-    const views = await Stat.find({type:"view"});
+    const productLookup : {[k: string] : number} = {} 
+    const views = await Stat.find({type:"view"}).lean();
+    for(let i = 0; i < views.length; i++) {
+      if(productLookup[views[i].productId]) {
+        productLookup[views[i].productId] +=1
+      } else {
+        productLookup[views[i].productId] =1
+      }
+    }
+    
   } catch (err) {
     console.log(err);
     return res.status(500).json({msg:"Unknown Error"});
