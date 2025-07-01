@@ -35,7 +35,13 @@ export const getMostViewedProduct = async (req:Request, res:Response): Promise<a
         productLookup[views[i].productId] =1
       }
     }
+    const productValueArr : Array<{id: string, count: number}> = []
     
+    Object.keys(productLookup).map(k => {
+      productValueArr.push({id: k, count: productLookup[k]});
+    })
+    
+    return res.status(200).json(productValueArr)
   } catch (err) {
     console.log(err);
     return res.status(500).json({msg:"Unknown Error"});
