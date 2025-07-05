@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Stat from '../../Models/Stat';
+import Product, { IProduct } from '../../Models/Product';
 
 export const getLatestViews = async (req:Request, res:Response): Promise<any> => {
   try {
@@ -35,10 +36,10 @@ export const getMostViewedProduct = async (req:Request, res:Response): Promise<a
         productLookup[views[i].productId] =1
       }
     }
-    const productValueArr : Array<{id: string, count: number}> = []
+    const productValueArr : Array<{id: string, count: number, prod?: IProduct | null}> = []
     
-    Object.keys(productLookup).map(k => {
-      productValueArr.push({id: k, count: productLookup[k]});
+    Object.keys(productLookup).map(async k => {
+      productValueArr.push({id: k, count: productLookup[k], prod: await Product.findOne({_id: k}).lean() });
     })
     
     return res.status(200).json(productValueArr)
