@@ -42,6 +42,8 @@ export const getMostViewedProduct = async (req:Request, res:Response): Promise<a
       productValueArr.push({id: k, count: productLookup[k], prod: await Product.findOne({_id: k}).lean() });
     })
     
+    productValueArr.sort((a,b) => a.count - b.count);
+    
     return res.status(200).json(productValueArr)
   } catch (err) {
     console.log(err);
