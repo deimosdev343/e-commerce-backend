@@ -36,14 +36,15 @@ export const getMostViewedProduct = async (req:Request, res:Response): Promise<a
         productLookup[views[i].productId] =1
       }
     }
-    const productValueArr : Array<{id: string, count: number, prod?: IProduct | null}> = []
+    let productValueArr : Array<{id: string, count: number, prod?: IProduct | null}> = []
     
     Object.keys(productLookup).map(async k => {
       productValueArr.push({id: k, count: productLookup[k], prod: await Product.findOne({_id: k}).lean() });
     })
     
     productValueArr.sort((a,b) => a.count - b.count);
-    
+    productValueArr = productValueArr.slice(0,5);
+
     return res.status(200).json(productValueArr)
   } catch (err) {
     console.log(err);
