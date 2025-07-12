@@ -39,13 +39,14 @@ export const getMostViewedProduct = async (req:Request, res:Response): Promise<a
     let productValueArr : Array<{id: string, count: number, prod?: IProduct | null}> = []
     
     Object.keys(productLookup).map(async k => {
-      productValueArr.push({id: k, count: productLookup[k], prod: await Product.findOne({_id: k}).lean() });
+      productValueArr.push({id: k, count: productLookup[k]});
     })
     
     productValueArr.sort((a,b) => a.count - b.count);
     productValueArr = productValueArr.slice(0,5);
-
-    return res.status(200).json(productValueArr)
+    
+    
+    return res.status(200).json(productValueArr);
   } catch (err) {
     console.log(err);
     return res.status(500).json({msg:"Unknown Error"});
