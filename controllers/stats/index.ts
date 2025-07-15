@@ -44,6 +44,10 @@ export const getMostViewedProduct = async (req:Request, res:Response): Promise<a
     
     productValueArr.sort((a,b) => a.count - b.count);
     productValueArr = productValueArr.slice(0,5);
+
+    for(let i = 0; i < productValueArr.length; i++) {
+      productValueArr[i].prod = await Product.findById(productValueArr[i].id);
+    }
     
     
     return res.status(200).json(productValueArr);
