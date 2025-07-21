@@ -1,3 +1,4 @@
+import ItemViewCount from "../../Models/ItemViewCount";
 import Stat, { IStat } from "../../Models/Stat";
 
 export const createViewStatistic = async (stat :IStat) => {
@@ -18,4 +19,15 @@ export const createOrderStatistic = async (stat: IStat) => {
     ip: stat.ip
   });
   await newstat.save();
+}
+
+export const updateViewCounter = async (productId: string) => {
+  const viewCounter = await ItemViewCount.findOne({productId});
+  if(!viewCounter) {
+    await (new ItemViewCount({
+      productId,
+      amount: 0
+    })).save()
+  }
+  ItemViewCount.findOneAndUpdate({productId}, {$inc:{amount:1}});
 }
