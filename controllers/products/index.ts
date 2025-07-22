@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import Product from '../../Models/Product';
 import Category from '../../Models/Category';
-import { createViewStatistic } from '../../serivces/Statistics/Statistics';
+import { createViewStatistic, updateViewCounter } from '../../serivces/Statistics/Statistics';
 
 
 const sortOptions = {
@@ -63,6 +63,7 @@ export async function getProductId(req: Request, res: Response): Promise<any> {
         ip: req.socket.remoteAddress
       });
     }
+    updateViewCounter(String(id));
 
     res.status(200).json(product);
   } catch (err) {
