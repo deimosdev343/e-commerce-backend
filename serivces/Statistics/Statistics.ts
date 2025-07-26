@@ -1,3 +1,4 @@
+import ItemOrderCount from "../../Models/ItemOrderCount";
 import ItemViewCount from "../../Models/ItemViewCount";
 import Stat, { IStat } from "../../Models/Stat";
 
@@ -30,4 +31,16 @@ export const updateViewCounter = async (productId: string) => {
     })).save()
   }
   ItemViewCount.findOneAndUpdate({productId}, {$inc:{amount:1}});
+}
+
+export const updateBuyCounter = async (productId: string) => {
+  const buyCounter = await ItemOrderCount.findOne({productId});
+  if(!buyCounter) {
+    await (new ItemOrderCount({
+      productId,
+      amount: 0
+    })).save();
+  }
+  ItemOrderCount.findOneAndUpdate({productId}, {$inc:{amount: 1}});
+
 }
