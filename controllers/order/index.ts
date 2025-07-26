@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import Order from '../../Models/Order';
 import { ICartProduct, IProduct } from '../../Models/Product';
-import { createOrderStatistic } from '../../serivces/Statistics/Statistics';
+import { createOrderStatistic, updateBuyCounter } from '../../serivces/Statistics/Statistics';
 
 export const createOrder = async (req: Request, res: Response) : Promise<any> => {
    try {
@@ -23,7 +23,8 @@ export const createOrder = async (req: Request, res: Response) : Promise<any> =>
         productId: products[i].id,
         purchaseId: order._id.toString(),
         ip:""   
-      })
+      });
+      updateBuyCounter(products[i].id);
     }
     return res.status(200).json({msg:"Order Successfully Created"})
    } catch (err) {
