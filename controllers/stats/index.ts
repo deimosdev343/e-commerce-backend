@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Stat from '../../Models/Stat';
 import Product, { IProduct } from '../../Models/Product';
+import ItemViewCount from '../../Models/ItemViewCount';
 
 export const getLatestViews = async (req:Request, res:Response): Promise<any> => {
   try {
@@ -27,30 +28,14 @@ export const getLatestPurchases = async (req:Request, res:Response): Promise<any
 
 export const getMostViewedProduct = async (req:Request, res:Response): Promise<any> => { 
   try {
-    const productLookup : {[k: string] : number} = {} 
-    const views = await Stat.find({type:"view"}).lean();
-    for(let i = 0; i < views.length; i++) {
-      if(productLookup[views[i].productId]) {
-        productLookup[views[i].productId] +=1
-      } else {
-        productLookup[views[i].productId] =1
-      }
-    }
-    let productValueArr : Array<{id: string, count: number, prod?: IProduct | null}> = []
-    
-    Object.keys(productLookup).map(async k => {
-      productValueArr.push({id: k, count: productLookup[k]});
-    })
-    
-    productValueArr.sort((a,b) => a.count - b.count);
-    productValueArr = productValueArr.slice(0,5);
+    const views = await ItemViewCount.find({}).sort({amount: -1}).limit(5).lean();
+    // let productResult : [{
+    //   product: 
+    // }] = [] 
+    for(let i =0; i< views.length; i++) {
 
-    for(let i = 0; i < productValueArr.length; i++) {
-      productValueArr[i].prod = await Product.findById(productValueArr[i].id);
     }
     
-    
-    return res.status(200).json(productValueArr);
   } catch (err) {
     console.log(err);
     return res.status(500).json({msg:"Unknown Error"});
