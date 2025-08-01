@@ -1,5 +1,4 @@
-export interface Product {
-   _id: string,
+export interface ProductType {
   category: string,
   colors: Array<string>,
   createdAt?: string,
@@ -7,7 +6,7 @@ export interface Product {
   extraImages: Array<string>,
   image: string,
   name: string,
-  price: number,
+  price: number | undefined,
   sizes: Array<string>
   updatedAt?: string
 }
