@@ -30,7 +30,7 @@ export const updateViewCounter = async (productId: string) => {
       amount: 0
     })).save()
   }
-  ItemViewCount.findOneAndUpdate({productId}, {$inc:{amount:1}});
+  await ItemViewCount.findOneAndUpdate({productId}, {$inc:{amount:1}});
 }
 
 export const updateBuyCounter = async (productId: string) => {
@@ -41,6 +41,6 @@ export const updateBuyCounter = async (productId: string) => {
       amount: 0
     })).save();
   }
-  ItemOrderCount.findOneAndUpdate({productId}, {$inc:{amount: 1}});
+  await ItemOrderCount.findOneAndUpdate({productId}, {$inc:{amount: 1}});
 
 }
