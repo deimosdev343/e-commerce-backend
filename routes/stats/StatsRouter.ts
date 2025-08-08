@@ -12,6 +12,6 @@ const StatsRouter = Router();
 StatsRouter.get('/latestViews', verifyToken, verifySeller, getLatestViews)
 StatsRouter.get('/latestPurchases', verifyToken, verifySeller, getLatestPurchases);
 StatsRouter.get('/topViews',verifyToken, verifySeller, getMostViewedProduct);
-StatsRouter.get('/topSells', verifyToken, verifySeller, getMostPurchasedProducts);
+StatsRouter.get('/topOrders', verifyToken, verifySeller, getMostPurchasedProducts);
 
 export default StatsRouter;
