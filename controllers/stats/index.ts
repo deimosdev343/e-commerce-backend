@@ -3,6 +3,7 @@ import Stat from '../../Models/Stat';
 import Product, { IProduct } from '../../Models/Product';
 import ItemViewCount from '../../Models/ItemViewCount';
 import { ProductType } from '../../types/product/product';
+import ItemOrderCount from '../../Models/ItemOrderCount';
 
 export const getLatestViews = async (req:Request, res:Response): Promise<any> => {
   try {
@@ -25,6 +26,39 @@ export const getLatestPurchases = async (req:Request, res:Response): Promise<any
     return res.status(500).json({msg:"Unknown Error"});
      
   }
+}
+
+export const getMostPurchasedProducts = async (req:Request, res: Response): Promise<any> => {
+  try {
+    const purchases = await ItemOrderCount.find({}).sort({amount: -1}).limit(5).lean();
+    let productResult : Array<{
+      product: ProductType,
+      orders: number
+    }> = [];
+    for(let i =0; i< purchases.length; i++) {
+      const currProd = await Product.findOne({_id: purchases[i].productId}).lean();
+      if(currProd) {
+        productResult.push({
+          orders: purchases[i].amount,
+          product: {
+            category: currProd.category,
+            colors: currProd.colors,
+            description: currProd.description,
+            extraImages: currProd.extraImages,
+            image: currProd.image,
+            name: currProd.name,
+            price: currProd.price.valueOf(),
+            sizes: currProd.sizes,
+          } 
+        });
+      } 
+    }
+    return res.status(200).json(productResult);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({msg:"Unknown Error"})
+  }
+    
 }
 
 export const getMostViewedProduct = async (req:Request, res:Response): Promise<any> => { 
