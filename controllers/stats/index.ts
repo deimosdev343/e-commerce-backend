@@ -46,7 +46,7 @@ export const getLatestViewsAndPurchases = async (req:Request, res:Response): Pro
       })
       .sort({updatedAt: -1})
       .lean();
-    
+    return res.status(200).json({orders, views})
   } catch (err) {
     console.log(err);
     return res.status(500).json({msg:"Unknown Error"});

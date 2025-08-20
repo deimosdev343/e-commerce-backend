@@ -3,6 +3,7 @@ import { verifySeller, verifyToken } from '../../middleware/authMiddleware';
 import { 
   getLatestPurchases,
   getLatestViews,
+  getLatestViewsAndPurchases,
   getMostPurchasedProducts,
   getMostViewedProduct 
 } from '../../controllers/stats';
@@ -13,5 +14,6 @@ StatsRouter.get('/latestViews', verifyToken, verifySeller, getLatestViews)
 StatsRouter.get('/latestPurchases', verifyToken, verifySeller, getLatestPurchases);
 StatsRouter.get('/topViews',verifyToken, verifySeller, getMostViewedProduct);
 StatsRouter.get('/topOrders', verifyToken, verifySeller, getMostPurchasedProducts);
+StatsRouter.get('/', verifyToken, verifySeller, getLatestViewsAndPurchases);
 
 export default StatsRouter;
