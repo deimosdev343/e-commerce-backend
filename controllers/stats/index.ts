@@ -39,14 +39,12 @@ export const getLatestViewsAndPurchases = async (req:Request, res:Response): Pro
         updatedAt:{$gte: currentDate.toISOString()}
       })
       .sort({updatedAt:-1})
-      .limit(10)
       .lean();
     const views = await Stat.find({
         type:"view",
         updatedAt:{$gte: currentDate.toISOString()}
       })
       .sort({updatedAt: -1})
-      .limit(10)
       .lean();
     
   } catch (err) {
