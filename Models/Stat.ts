@@ -5,7 +5,8 @@ export interface IStat {
   type: "view" | "purchase",
   productId: string,
   purchaseId?: string,
-  ip?: string
+  ip?: string,
+  updatedAt?: Date
   
 }
 

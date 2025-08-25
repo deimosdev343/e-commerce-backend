@@ -33,6 +33,8 @@ export const getLatestViewsAndPurchases = async (req:Request, res:Response): Pro
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
     const monthsToSubtract = 1; // Example: subtract 3 months
+    const orderCount : any = {};
+    const viewCount : any = {}; 
     currentDate.setMonth(currentMonth - monthsToSubtract);
     const orders = await Stat.find({
         type:"purchase",
@@ -40,13 +42,27 @@ export const getLatestViewsAndPurchases = async (req:Request, res:Response): Pro
       })
       .sort({updatedAt:-1})
       .lean();
+    for(let i = 0; i < orders.length; i++) {
+      if(orderCount[String(orders[i].updatedAt?.toISOString()).split("T")[0]]) {
+        orderCount[String(orders[i].updatedAt?.toISOString()).split("T")[0]] +=1
+      } else {
+        orderCount[String(orders[i].updatedAt?.toISOString()).split("T")[0]] = 1;
+      }
+    }
     const views = await Stat.find({
         type:"view",
         updatedAt:{$gte: currentDate.toISOString()}
       })
       .sort({updatedAt: -1})
       .lean();
-    return res.status(200).json({orders, views})
+    for(let i = 0; i < views.length; i++) {
+      if(viewCount[String(views[i].updatedAt?.toISOString()).split("T")[0]]) {
+        viewCount[String(views[i].updatedAt?.toISOString()).split("T")[0]] +=1
+      } else {
+        viewCount[String(views[i].updatedAt?.toISOString()).split("T")[0]] = 1;
+      }
+    }
+    return res.status(200).json({viewCount, orderCount})
   } catch (err) {
     console.log(err);
     return res.status(500).json({msg:"Unknown Error"});
@@ -110,8 +126,9 @@ export const getMostViewedProduct = async (req:Request, res:Response): Promise<a
             sizes: currProd.sizes,
           } 
         });
-      } 
+      }
     }
+
     return res.status(200).json(productResult);
   } catch (err) {
     console.log(err);
