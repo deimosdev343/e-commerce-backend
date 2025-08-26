@@ -32,9 +32,8 @@ export const getLatestViewsAndPurchases = async (req:Request, res:Response): Pro
   try {
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
-    const monthsToSubtract = 1; // Example: subtract 3 months
-    const orderCount : any = {};
-    const viewCount : any = {}; 
+    const monthsToSubtract = 1;
+    const count : {[key: string] : {viewCount: number, orderCount: number}} = {}
     currentDate.setMonth(currentMonth - monthsToSubtract);
     const orders = await Stat.find({
         type:"purchase",
@@ -43,10 +42,10 @@ export const getLatestViewsAndPurchases = async (req:Request, res:Response): Pro
       .sort({updatedAt:-1})
       .lean();
     for(let i = 0; i < orders.length; i++) {
-      if(orderCount[String(orders[i].updatedAt?.toISOString()).split("T")[0]]) {
-        orderCount[String(orders[i].updatedAt?.toISOString()).split("T")[0]] +=1
+      if(count[String(orders[i].updatedAt?.toISOString()).split("T")[0]]) {
+        count[String(orders[i].updatedAt?.toISOString()).split("T")[0]].orderCount +=1
       } else {
-        orderCount[String(orders[i].updatedAt?.toISOString()).split("T")[0]] = 1;
+        count[String(orders[i].updatedAt?.toISOString()).split("T")[0]] = {orderCount: 1, viewCount: 0}
       }
     }
     const views = await Stat.find({
@@ -56,13 +55,14 @@ export const getLatestViewsAndPurchases = async (req:Request, res:Response): Pro
       .sort({updatedAt: -1})
       .lean();
     for(let i = 0; i < views.length; i++) {
-      if(viewCount[String(views[i].updatedAt?.toISOString()).split("T")[0]]) {
-        viewCount[String(views[i].updatedAt?.toISOString()).split("T")[0]] +=1
+      if(count[String(views[i].updatedAt?.toISOString()).split("T")[0]]) {
+        count[String(views[i].updatedAt?.toISOString()).split("T")[0]].viewCount +=1
       } else {
-        viewCount[String(views[i].updatedAt?.toISOString()).split("T")[0]] = 1;
+        count[String(views[i].updatedAt?.toISOString()).split("T")[0]]= {orderCount: 0, viewCount: 1};
       }
     }
-    return res.status(200).json({viewCount, orderCount})
+
+    return res.status(200).json(count)
   } catch (err) {
     console.log(err);
     return res.status(500).json({msg:"Unknown Error"});
