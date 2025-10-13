@@ -1,8 +1,8 @@
 import { validateData, validateQueryParams } from '../../validation/validation';
-import { createProduct, deleteProduct, editProduct, getProductId, getProducts } from '../../controllers/products';
+import { createProduct, deleteProduct, editProduct, getProductId, getProducts, setFeatured } from '../../controllers/products';
 import { Router } from 'express';
 import { verifySeller, verifyToken } from '../../middleware/authMiddleware';
-import {z, ZodError} from 'zod';
+import {boolean, z, ZodError} from 'zod';
 
 const ProductRouter = Router();
 
@@ -36,6 +36,11 @@ export const productParamsSchema = z.object({
   name:z.string().catch("")
 })
 
+export const featuredSchema = z.object({
+  featured: z.boolean(),
+  id: z.string(),
+  feauredRanking: z.number()
+});
 
 ProductRouter.get('/',
   validateQueryParams(productParamsSchema),
@@ -59,6 +64,13 @@ ProductRouter.delete('/',
   verifySeller,
   deleteProduct
 );
+
+ProductRouter.put('/featured',
+  verifyToken,
+  verifySeller,
+  validateData(featuredSchema),
+  setFeatured
+)
 
 
 
