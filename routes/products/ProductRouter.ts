@@ -36,6 +36,7 @@ export const productParamsSchema = z.object({
   name:z.string().catch("")
 })
 
+
 ProductRouter.get('/',
   validateQueryParams(productParamsSchema),
   getProducts

@@ -162,3 +162,14 @@ export async function deleteProduct(req: Request, res: Response):Promise<any> {
     res.status(500).json("Internal server Error");
   }
 }
+
+export async function setFeatured(req: Request, res: Response): Promise<any> {
+  try {
+    const {featured, id, featuredRanking} = req.body;
+    await Product.findByIdAndUpdate(id, {$set:{featured,featuredRanking}});
+    res.status(200).json({msg:"Featured state updated"});
+  } catch (err) {
+    console.log(err);
+    res.status(500).json("Internal server Error");
+  }
+}
