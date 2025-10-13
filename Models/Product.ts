@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { boolean } from "zod";
 
 export interface ICartProduct {
   name: string,
@@ -17,7 +18,9 @@ export interface IProduct {
   category: string,
   colors: string[],
   sizes: string[],
-  extraImages: string[]
+  extraImages: string[],
+  featured: boolean,
+  featuredRanking: number
 }
 
 const productSchema = new mongoose.Schema<IProduct>({
@@ -28,7 +31,9 @@ const productSchema = new mongoose.Schema<IProduct>({
   category: {type: String, required: true},
   sizes: {type: [{type: String}]},
   colors: {type: [{type: String}]},
-  extraImages: {type: [{type: String}]}
+  extraImages: {type: [{type: String}]},
+  featured: {type: Boolean, default: false},
+  featuredRanking: {type: Number, default: 99}
   
 }, {timestamps: true});
 
