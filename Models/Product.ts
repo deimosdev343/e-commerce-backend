@@ -33,7 +33,7 @@ const productSchema = new mongoose.Schema<IProduct>({
   colors: {type: [{type: String}]},
   extraImages: {type: [{type: String}]},
   featured: {type: Boolean, default: false},
-  featuredRanking: {type: Number, default: 99}
+  featuredRanking: {type: Number, default: 0}
   
 }, {timestamps: true});
 

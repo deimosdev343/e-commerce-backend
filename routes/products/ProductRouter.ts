@@ -39,7 +39,7 @@ export const productParamsSchema = z.object({
 export const featuredSchema = z.object({
   featured: z.boolean(),
   id: z.string(),
-  feauredRanking: z.number()
+  feauredRanking: z.number().int().min(0, "Rank cannot be lower than zero").max(99, "Rank Cannot be higher than 99")
 });
 
 ProductRouter.get('/',
