@@ -36,6 +36,13 @@ export const productParamsSchema = z.object({
   name:z.string().catch("")
 })
 
+
+export const featuredGetSchema = z.object({
+  limit: z.number().catch(10), 
+  category: z.string().catch(""), 
+  name:z.string().catch("")
+});
+
 export const featuredSchema = z.object({
   featured: z.boolean(),
   id: z.string(),
@@ -71,6 +78,10 @@ ProductRouter.put('/featured',
   validateData(featuredSchema),
   setFeatured
 )
+ProductRouter.get('/featured',
+  validateQueryParams(featuredGetSchema),
+  getProducts
+);
 
 
 
