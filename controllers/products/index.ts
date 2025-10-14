@@ -176,9 +176,18 @@ export async function setFeatured(req: Request, res: Response): Promise<any> {
 
 export async function getFeatured(req: Request, res: Response): Promise<any> {
   try {
-    const {limit, category} = req.query;
+    const {limit,category} = req.query;
     const amountToLimit = parseInt(String(limit || 0));
-    const featuredProducts = await Product.find({featured: true, category}).sort({featuredRank: -1}).limit(amountToLimit);
+    const query: {
+      category?: string | undefined,
+      name?: {"$regex": string | undefined, "$options":"i"} | undefined,
+    } = {};
+    
+    if(category) {
+      query.category = String(category);
+    }
+   
+    const featuredProducts = await Product.find({featured: true, ...query}).sort({featuredRank: -1}).limit(amountToLimit);
     res.status(200).json(featuredProducts)
   } catch (err) {
     console.log(err);

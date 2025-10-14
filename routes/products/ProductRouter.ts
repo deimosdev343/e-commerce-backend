@@ -40,7 +40,6 @@ export const productParamsSchema = z.object({
 export const featuredGetSchema = z.object({
   limit: z.number().catch(10), 
   category: z.string().catch(""), 
-  name:z.string().catch("")
 });
 
 export const featuredSchema = z.object({
