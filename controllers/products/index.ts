@@ -187,7 +187,7 @@ export async function getFeatured(req: Request, res: Response): Promise<any> {
       query.category = String(category);
     }
    
-    const featuredProducts = await Product.find({featured: true, ...query}).sort({featuredRank: -1}).limit(amountToLimit);
+    const featuredProducts = await Product.find({featured: true, ...query}).sort({featuredDate: -1}).limit(amountToLimit);
     res.status(200).json(featuredProducts)
   } catch (err) {
     console.log(err);
