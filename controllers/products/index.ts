@@ -165,8 +165,8 @@ export async function deleteProduct(req: Request, res: Response):Promise<any> {
 
 export async function setFeatured(req: Request, res: Response): Promise<any> {
   try {
-    const {featured, id, featuredRanking} = req.body;
-    await Product.findByIdAndUpdate(id, {$set:{featured,featuredRanking}});
+    const {featured, id} = req.body;
+    await Product.findByIdAndUpdate(id, {$set:{featured, featuredDate: Date.now()}});
     res.status(200).json({msg:"Featured state updated"});
   } catch (err) {
     console.log(err);

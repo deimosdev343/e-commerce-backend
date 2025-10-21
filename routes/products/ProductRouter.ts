@@ -45,7 +45,6 @@ export const featuredGetSchema = z.object({
 export const featuredSchema = z.object({
   featured: z.boolean(),
   id: z.string(),
-  feauredRanking: z.number().int().min(0).max(99).catch(99)
 });
 
 ProductRouter.get('/',

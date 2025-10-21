@@ -20,7 +20,7 @@ export interface IProduct {
   sizes: string[],
   extraImages: string[],
   featured: boolean,
-  featuredRanking: number
+  featuredDate: Date
 }
 
 const productSchema = new mongoose.Schema<IProduct>({
@@ -33,7 +33,7 @@ const productSchema = new mongoose.Schema<IProduct>({
   colors: {type: [{type: String}]},
   extraImages: {type: [{type: String}]},
   featured: {type: Boolean, default: false},
-  featuredRanking: {type: Number, default: 0}
+  featuredDate: {type: Date, default: Date.now()}
   
 }, {timestamps: true});
 
