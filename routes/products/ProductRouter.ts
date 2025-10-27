@@ -1,5 +1,5 @@
 import { validateData, validateQueryParams } from '../../validation/validation';
-import { createProduct, deleteProduct, editProduct, getProductId, getProducts, setFeatured } from '../../controllers/products';
+import { createProduct, deleteProduct, editProduct, getFeatured, getProductId, getProducts, setFeatured } from '../../controllers/products';
 import { Router } from 'express';
 import { verifySeller, verifyToken } from '../../middleware/authMiddleware';
 import {boolean, z, ZodError} from 'zod';
@@ -78,7 +78,7 @@ ProductRouter.put('/featured',
 )
 ProductRouter.get('/featured',
   validateQueryParams(featuredGetSchema),
-  getProducts
+  getFeatured
 );
 
 
