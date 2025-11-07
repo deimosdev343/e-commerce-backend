@@ -26,3 +26,19 @@ export const createDiscount = async (req: Request, res: Response): Promise<any> 
   }
 }
 
+export const getDiscounts = async (req: Request, res: Response): Promise<any> => {
+  let {startDate, endDate, limit} = req.query
+  try {
+    let cStartDate = dayjs(String(startDate));
+    let cEndDate = dayjs(String(endDate));
+
+    const discounts = await Discount.find({
+      startDate:{$gte:cStartDate},
+      endDate:{$lte:cEndDate}
+    }).limit(Number(limit) || 10).lean();
+
+    return res.status(200).json(discounts);
+  } catch (err) {
+    console.log(err)
+  }
+}
