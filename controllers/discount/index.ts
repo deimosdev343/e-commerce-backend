@@ -4,13 +4,13 @@ import Discount from '../../Models/Discount';
 
 export const createDiscount = async (req: Request, res: Response): Promise<any> => {
   try {
-    let {description, productIds, image, discountAmount, startDate, endDate} = req.body;
+    let {description, image, discountAmount, startDate, endDate} = req.body;
     startDate = dayjs(startDate);
     endDate = dayjs(endDate);
     
+    
     const discount = new Discount({
       description,
-      productIds,
       image,
       discountAmount,
       startDate,

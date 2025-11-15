@@ -1,19 +1,18 @@
 import mongoose from "mongoose"
 
 export interface IDiscount {
-  productIds: string[],
   description: string,
   image: string,
   discountAmount: Number,
   startDate: Date,
-  endDate: Date
+  endDate: Date,
+  discountId: string,
+  background: string
 }
 
 const discountSchema = new mongoose.Schema<IDiscount>({
-  productIds: {
-    type: [{
-      type: String
-    }]
+  discountId: {
+    type: String
   },
   description:{
     type: String,
@@ -22,6 +21,9 @@ const discountSchema = new mongoose.Schema<IDiscount>({
   image:{
     type: String,
     required: true
+  },
+  background: {
+    type: String,
   },
   discountAmount: {
     type: Number,
