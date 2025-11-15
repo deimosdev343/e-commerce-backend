@@ -11,7 +11,7 @@ export const discountValidation = z.object({
   discountAmount: z.number(),
   startDate: z.date(),
   endDate: z.date(),
-  productIds: z.array(z.string())
+  background: z.string()
 })
 
 const DiscountRouter = Router();

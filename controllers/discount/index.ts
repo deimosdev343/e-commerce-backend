@@ -1,18 +1,21 @@
 import dayjs from 'dayjs';
 import { Request, Response } from 'express';
 import Discount from '../../Models/Discount';
-
+import {v4} from 'uuid'
 export const createDiscount = async (req: Request, res: Response): Promise<any> => {
   try {
-    let {description, image, discountAmount, startDate, endDate} = req.body;
+    let {description, image, background, discountAmount, startDate, endDate} = req.body;
     startDate = dayjs(startDate);
     endDate = dayjs(endDate);
     
+    const newId = v4().toString();
     
     const discount = new Discount({
+      discountId: newId,
       description,
       image,
       discountAmount,
+      background,
       startDate,
       endDate
     });
