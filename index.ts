@@ -8,6 +8,7 @@ import OrderRouter from "./routes/orders/OrderRouter";
 import CategoryRouter from "./routes/category/CategoryRouter";
 import { initAdminFunc } from "./serivces/initAdmin";
 import StatsRouter from "./routes/stats/StatsRouter";
+import DiscountRouter from "./routes/discount/DiscountRouter";
 dotenv.config();
 
 const port = process.env.PORT || 8000;
@@ -22,7 +23,8 @@ app.use("/products", ProductRouter);
 app.use("/auth", AuthRouter);
 app.use("/order", OrderRouter);
 app.use("/category", CategoryRouter);
-app.use("/stats", StatsRouter)
+app.use("/stats", StatsRouter);
+app.use("/discounts", DiscountRouter);
 await connection();
 
 app.listen(port, () => {
