@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { validateData } from '../../validation/validation';
+import { validateData, validateQueryParams } from '../../validation/validation';
 import {z} from 'zod';
 import { verifyToken, verifySeller } from '../../middleware/authMiddleware';
-import { createDiscount } from '../../controllers/discount';
+import { createDiscount, getDiscounts } from '../../controllers/discount';
 
 
 export const discountValidation = z.object({
@@ -12,10 +12,17 @@ export const discountValidation = z.object({
   startDate: z.string().datetime(),
   endDate: z.string().datetime(),
   background: z.string()
-})
+});
+
+export const discountParamValidation = z.object({
+  description: z.string(),
+  startDate: z.string().datetime(),
+  endDate: z.string().datetime(),
+  limit: z.number().catch(10)
+});
 
 const DiscountRouter = Router();
 
 DiscountRouter.post('/', verifyToken, verifySeller,validateData(discountValidation), createDiscount);
-
+DiscountRouter.get('/', verifyToken, verifySeller, validateQueryParams(discountParamValidation), getDiscounts);
 export default DiscountRouter;

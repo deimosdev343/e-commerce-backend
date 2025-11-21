@@ -30,7 +30,7 @@ export const createDiscount = async (req: Request, res: Response): Promise<any> 
 }
 
 export const getDiscounts = async (req: Request, res: Response): Promise<any> => {
-  let {description, startDate, endDate, limit} = req.query
+  let {description, startDate, endDate, limit}  = req.query
   try {
     let cStartDate = dayjs(String(startDate));
     let cEndDate = dayjs(String(endDate));
@@ -41,7 +41,7 @@ export const getDiscounts = async (req: Request, res: Response): Promise<any> =>
     } = {};
     
     if(description) {
-      query.description = {"$regex": String(name), "$options":"i"}     
+      query.description = {"$regex": String(description), "$options":"i"}     
     }
     if(startDate) query.startDate = cStartDate.toDate();
     if(endDate) query.endDate = cEndDate.toDate();
