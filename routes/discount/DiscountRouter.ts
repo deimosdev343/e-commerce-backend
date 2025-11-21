@@ -8,9 +8,9 @@ import { createDiscount } from '../../controllers/discount';
 export const discountValidation = z.object({
   description: z.string(),
   image: z.string(),
-  discountAmount: z.number(),
-  startDate: z.date(),
-  endDate: z.date(),
+  discountAmount: z.number().min(1).max(99),
+  startDate: z.string().datetime(),
+  endDate: z.string().datetime(),
   background: z.string()
 })
 
