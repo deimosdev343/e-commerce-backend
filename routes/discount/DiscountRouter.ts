@@ -3,6 +3,7 @@ import { validateData, validateQueryParams } from '../../validation/validation';
 import {z} from 'zod';
 import { verifyToken, verifySeller } from '../../middleware/authMiddleware';
 import { createDiscount, getDiscounts } from '../../controllers/discount';
+import dayjs from 'dayjs';
 
 
 export const discountValidation = z.object({
@@ -14,10 +15,11 @@ export const discountValidation = z.object({
   background: z.string()
 });
 
+// Thank fuck for zod, I swear to god
 export const discountParamValidation = z.object({
-  description: z.string(),
-  startDate: z.string().datetime(),
-  endDate: z.string().datetime(),
+  description: z.string().catch(""),
+  startDate: z.string().datetime().catch(dayjs().subtract(1, 'month').toISOString()),
+  endDate: z.string().datetime().catch(dayjs().add(1, 'month').toISOString()),
   limit: z.number().catch(10)
 });
 
