@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { validateData, validateQueryParams } from '../../validation/validation';
 import {z} from 'zod';
 import { verifyToken, verifySeller } from '../../middleware/authMiddleware';
-import { createDiscount, getDiscounts } from '../../controllers/discount';
+import { createDiscount, deleteDiscount, getDiscounts } from '../../controllers/discount';
 import dayjs from 'dayjs';
 
 
@@ -27,4 +27,5 @@ const DiscountRouter = Router();
 
 DiscountRouter.post('/', verifyToken, verifySeller,validateData(discountValidation), createDiscount);
 DiscountRouter.get('/', verifyToken, verifySeller, validateQueryParams(discountParamValidation), getDiscounts);
+DiscountRouter.delete('/', verifyToken, verifySeller, deleteDiscount);
 export default DiscountRouter;

@@ -56,3 +56,17 @@ export const getDiscounts = async (req: Request, res: Response): Promise<any> =>
     console.log(err)
   }
 }
+
+export const deleteDiscount = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const {discountId} = req.query;
+    const discount = await Discount.findOne({discountId});
+    if(!discount) {
+      res.status(404).json({msg:"discount not found"});
+    }
+    await Discount.findOneAndDelete({discountId});
+    return res.status(200).json({msg:"Discount deleted Successfully"});
+  } catch (err) {
+    console.log(err);
+  }
+}
