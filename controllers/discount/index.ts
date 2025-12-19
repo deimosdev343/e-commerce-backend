@@ -2,6 +2,32 @@ import dayjs from 'dayjs';
 import { Request, Response } from 'express';
 import Discount from '../../Models/Discount';
 import {v4} from 'uuid'
+
+export const editDiscount = async (req: Request, res: Response): Promise<any> => {
+  try {
+    let {discountId,description, image, background, discountAmount, startDate, endDate} = req.body;
+    startDate = dayjs(startDate);
+    endDate = dayjs(endDate);
+
+    const existingDiscount = await Discount.findOne({discountId});
+    if(!existingDiscount) {
+      return res.status(404).json({msg:"Discount doesn't exist"});
+    }
+    await Discount.findOneAndUpdate({discountId}, {$set: {
+      description,
+      image,
+      background,
+      discountAmount,
+      startDate,
+      endDate
+    }});
+    res.status(200).json({msg:"Discount updated successfully"});
+    
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export const createDiscount = async (req: Request, res: Response): Promise<any> => {
   try {
     let {description, image, background, discountAmount, startDate, endDate} = req.body;
