@@ -15,14 +15,23 @@ export const discountValidation = z.object({
   background: z.string()
 });
 
+export const discountEditValidation = z.object({
+  discountId: z.string(),
+  description: z.string(),
+  image: z.string(),
+  discountAmount: z.number().min(1).max(99),
+  startDate: z.string().datetime(),
+  endDate: z.string().datetime(),
+  background: z.string()
+})
+
 // Thank fuck for zod, I swear to god
 export const discountParamValidation = z.object({
   description: z.string().catch(""),
   startDate: z.string().datetime().catch(dayjs().subtract(1, 'month').toISOString()),
   endDate: z.string().datetime().catch(dayjs().add(1, 'month').toISOString()),
-  limit: z.number().catch(10),
-  image: z.string(),
-  
+  limit: z.number().catch(10)
+
 });
 
 const DiscountRouter = Router();
@@ -30,5 +39,5 @@ const DiscountRouter = Router();
 DiscountRouter.post('/', verifyToken, verifySeller,validateData(discountValidation), createDiscount);
 DiscountRouter.get('/', verifyToken, verifySeller, validateQueryParams(discountParamValidation), getDiscounts);
 DiscountRouter.delete('/', verifyToken, verifySeller, deleteDiscount);
-DiscountRouter.put('/', verifyToken, verifySeller, validateData(discountValidation), editDiscount);
+DiscountRouter.put('/', verifyToken, verifySeller, validateData(discountEditValidation), editDiscount);
 export default DiscountRouter;

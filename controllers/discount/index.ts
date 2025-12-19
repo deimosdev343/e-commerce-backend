@@ -86,6 +86,7 @@ export const getDiscounts = async (req: Request, res: Response): Promise<any> =>
 export const deleteDiscount = async (req: Request, res: Response): Promise<any> => {
   try {
     const {discountId} = req.query;
+    console.log(discountId)
     const discount = await Discount.findOne({discountId});
     if(!discount) {
       res.status(404).json({msg:"discount not found"});
