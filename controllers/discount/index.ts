@@ -55,6 +55,17 @@ export const createDiscount = async (req: Request, res: Response): Promise<any> 
   }
 }
 
+export const getDiscountsForClient = async (req: Request, res: Response): Promise<any> => {
+  try {
+    let currDate = dayjs().toDate();
+    const discounts = await Discount.find({endDate:{$gte: currDate}}).limit(5);
+    return res.status(200).json(discounts);
+  } catch (err) {
+    return res.status(500).json({msg:"Internal Server Error"});
+    console.log(err);
+  }
+}
+
 export const getDiscounts = async (req: Request, res: Response): Promise<any> => {
   let {description, startDate, endDate, limit}  = req.query
   try {
