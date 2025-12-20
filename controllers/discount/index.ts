@@ -71,11 +71,9 @@ export const getDiscounts = async (req: Request, res: Response): Promise<any> =>
     }
     if(startDate) query.startDate = cStartDate.toDate();
     if(endDate) query.endDate = cEndDate.toDate();
-    
-    const discounts = await Discount.find({
-      startDate:{$gte:cStartDate},
-      endDate:{$lte:cEndDate}
-    }).limit(Number(limit) || 10).lean();
+    console.log(query)
+    //Removing start And end date for now
+    const discounts = await Discount.find().limit(Number(limit) || 10).lean();
 
     return res.status(200).json(discounts);
   } catch (err) {
