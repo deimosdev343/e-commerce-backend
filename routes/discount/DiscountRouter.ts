@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { validateData, validateQueryParams } from '../../validation/validation';
 import {z} from 'zod';
 import { verifyToken, verifySeller } from '../../middleware/authMiddleware';
-import { createDiscount, deleteDiscount, editDiscount, getDiscounts, getDiscountsForClient } from '../../controllers/discount';
+import { addItemToDiscount, createDiscount, deleteDiscount, editDiscount, getDiscounts, getDiscountsForClient } from '../../controllers/discount';
 import dayjs from 'dayjs';
 
 
@@ -34,6 +34,11 @@ export const discountParamValidation = z.object({
 
 });
 
+
+export const addDiscountProdValidation = z.object({
+  prodId: z.string(),
+  discountId: z.string()
+})
 const DiscountRouter = Router();
 
 DiscountRouter.post('/', verifyToken, verifySeller,validateData(discountValidation), createDiscount);
@@ -41,4 +46,6 @@ DiscountRouter.get('/', verifyToken, verifySeller, validateQueryParams(discountP
 DiscountRouter.get('/getDiscountsForClient', getDiscountsForClient);
 DiscountRouter.delete('/', verifyToken, verifySeller, deleteDiscount);
 DiscountRouter.put('/', verifyToken, verifySeller, validateData(discountEditValidation), editDiscount);
+DiscountRouter.put('/items/', verifyToken, verifySeller, validateData(addDiscountProdValidation), addItemToDiscount);
+
 export default DiscountRouter;
