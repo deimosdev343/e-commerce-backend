@@ -130,4 +130,28 @@ export const addItemToDiscount = async (req: Request, res: Response): Promise<an
   } catch (err) {
     console.log(err);
   }
-} 
+}
+
+export const removeItemToDiscount = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const {prodId, discountId} = req.body;
+    const discount = await Discount.findOne({discountId}).lean();
+    const product = await Product.findById(prodId);
+    if(!discount) {
+      return res.status(404).json({msg:"discount not found"});
+    }
+    if(!product) {
+      return res.status(404).json({msg:"product not found"});
+    }
+    let discountProds = discount.productIds;
+    if(discountProds.findIndex(pid => pid == prodId) == -1) {
+      return res.status(401).json({msg:"product doesn't exist in discount"});
+    }
+    discountProds = discountProds.filter(p => p != prodId);
+    await Discount.findOneAndUpdate({discountId}, {$set:{productIds: discountProds}});
+    return res.status(200).json({msg:"product removed from discount"});
+  
+  } catch (err) {
+    console.log(err);
+  }
+}
