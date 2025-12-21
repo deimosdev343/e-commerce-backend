@@ -2,6 +2,7 @@ import dayjs from 'dayjs';
 import { Request, Response } from 'express';
 import Discount from '../../Models/Discount';
 import {v4} from 'uuid'
+import Product from '../../Models/Product';
 
 export const editDiscount = async (req: Request, res: Response): Promise<any> => {
   try {
@@ -61,8 +62,8 @@ export const getDiscountsForClient = async (req: Request, res: Response): Promis
     const discounts = await Discount.find({endDate:{$gte: currDate}}).limit(5);
     return res.status(200).json(discounts);
   } catch (err) {
-    return res.status(500).json({msg:"Internal Server Error"});
     console.log(err);
+    return res.status(500).json({msg:"Internal Server Error"});
   }
 }
 
@@ -98,7 +99,7 @@ export const deleteDiscount = async (req: Request, res: Response): Promise<any> 
     console.log(discountId)
     const discount = await Discount.findOne({discountId});
     if(!discount) {
-      res.status(404).json({msg:"discount not found"});
+      return res.status(404).json({msg:"discount not found"});
     }
     await Discount.findOneAndDelete({discountId});
     return res.status(200).json({msg:"Discount deleted Successfully"});
@@ -106,3 +107,27 @@ export const deleteDiscount = async (req: Request, res: Response): Promise<any> 
     console.log(err);
   }
 }
+
+export const addItemToDiscount = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const {prodId, discountId} = req.body;
+    const discount = await Discount.findOne({discountId}).lean();
+    const product = await Product.findById(prodId);
+    if(!discount) {
+      return res.status(404).json({msg:"discount not found"});
+    }
+    if(!product) {
+      return res.status(404).json({msg:"product not found"});
+    }
+    let discountProds = discount.productIds;
+    if(discountProds.findIndex(pid => pid == prodId) > -1) {
+      return res.status(401).json({msg:"product is already included in this discount"});
+    }
+    discountProds = [...discountProds, prodId];
+    await Discount.findOneAndUpdate({discountId}, {$set:{productIds: discountProds}});
+    return res.status(200).json({msg: "Discount products Successfully updated "});
+    
+  } catch (err) {
+    console.log(err);
+  }
+} 

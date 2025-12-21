@@ -7,7 +7,8 @@ export interface IDiscount {
   startDate: Date,
   endDate: Date,
   discountId: string,
-  background: string
+  background: string,
+  productIds: string[] 
 }
 
 const discountSchema = new mongoose.Schema<IDiscount>({
@@ -36,6 +37,10 @@ const discountSchema = new mongoose.Schema<IDiscount>({
   endDate: {
     type: Date,
     required: true
+  },
+  productIds: {
+    type: [],
+    default: []
   }
 });
 
