@@ -120,14 +120,12 @@ export const addItemToDiscount = async (req: Request, res: Response): Promise<an
       return res.status(404).json({msg:"product not found"});
     }
     let discountProds = discount.productIds || [];
-    let prodDiscounts = product.discountIds || [];
     if(discountProds.findIndex(pid => pid == prodId) > -1) {
       return res.status(401).json({msg:"product is already included in this discount"});
     }
     discountProds = [...discountProds, prodId];
-    prodDiscounts = [...prodDiscounts, discountId];
     await Discount.findOneAndUpdate({discountId}, {$set:{productIds: discountProds}});
-    await Product.findByIdAndUpdate(prodId,{$set: {discountIds: prodDiscounts}});
+    await Product.findByIdAndUpdate(prodId,{$set: {discountId: discountId}});
   
     return res.status(200).json({msg: "Discount products Successfully updated "});
     
@@ -148,14 +146,12 @@ export const removeItemToDiscount = async (req: Request, res: Response): Promise
       return res.status(404).json({msg:"product not found"});
     }
     let discountProds = discount.productIds || [];
-    let productDiscounts = product.discountIds || []
     if(discountProds.findIndex(pid => pid == prodId) == -1) {
       return res.status(401).json({msg:"product doesn't exist in discount"});
     }
     discountProds = discountProds.filter(p => p != prodId);
-    productDiscounts = productDiscounts.filter(d => d != discountId);
     await Discount.findOneAndUpdate({discountId}, {$set:{productIds: discountProds}});
-    await Product.findByIdAndUpdate(prodId, {$set:{discountIds: productDiscounts}});
+    await Product.findByIdAndUpdate(prodId, {$set:{discountId: null}});
     return res.status(200).json({msg:"product removed from discount"});
 
   
