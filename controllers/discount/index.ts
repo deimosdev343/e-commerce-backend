@@ -4,6 +4,17 @@ import Discount from '../../Models/Discount';
 import {v4} from 'uuid'
 import Product from '../../Models/Product';
 
+
+export const getDiscount = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const {discountId} = req.query;
+    const discount = await Discount.findOne({discountId});
+    return res.status(200).json({discount});
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 export const editDiscount = async (req: Request, res: Response): Promise<any> => {
   try {
     let {discountId,description, image, background, discountAmount, startDate, endDate} = req.body;
