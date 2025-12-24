@@ -53,6 +53,6 @@ DiscountRouter.delete('/', verifyToken, verifySeller, deleteDiscount);
 DiscountRouter.put('/', verifyToken, verifySeller, validateData(discountEditValidation), editDiscount);
 DiscountRouter.put('/items/', verifyToken, verifySeller, validateData(addDiscountProdValidation), addItemToDiscount);
 DiscountRouter.put('/items/delete', verifyToken, verifySeller, validateData(addDiscountProdValidation), removeItemToDiscount);
-DiscountRouter.get('/getDiscount', validateData(getDiscountValidation), getDiscount)
+DiscountRouter.get('/getDiscount', validateQueryParams(getDiscountValidation), getDiscount)
 
 export default DiscountRouter;
