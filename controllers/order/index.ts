@@ -3,6 +3,7 @@ import Order from '../../Models/Order';
 import { ICartProduct, IProduct } from '../../Models/Product';
 import { createOrderStatistic, updateBuyCounter } from '../../serivces/Statistics/Statistics';
 import { ProductType } from '../../types/product/product';
+import Discount from '../../Models/Discount';
 
 export const createOrder = async (req: Request, res: Response) : Promise<any> => {
    try {
@@ -41,17 +42,28 @@ export const calculateOrder = async (req: Request, res: Response): Promise<any> 
     const {products} : {products: Array<ProductType>} = req.body;
     let productPrices:Array<{
       type: "product" | "discount",
-      price: number | undefined
+      price: number | undefined,
+      name: string
     }> = [];
 
     for(let i = 0; i< products.length; i++) {
       productPrices.push({
         type: "product",
-        price: products[i].price
-      })
-
+        price: products[i].price,
+        name: products[i].name
+      });
+      if(products[i].discountId) {
+        const discount = await Discount.findOne({discountId:products[i].discountId }).lean();
+        const discountName = `${discount?.description} %${discount?.discountAmount} off`
+        const discountPrice = (products[i].price * parseFloat(`0.${discount?.discountAmount}`)) * -1;
+        productPrices.push({
+          type: "discount",
+          price: discountPrice,
+          name: discountName 
+        });
+      }
     }
-
+    return res.status(200).json({priceList: productPrices});
   } catch (err) {
     console.log(err);
     return res.status(500).json({msg:"Internal Server Error"});

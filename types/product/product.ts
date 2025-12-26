@@ -7,7 +7,7 @@ export interface ProductType {
   image: string,
   name: string,
   discountId: string,
-  price: number | undefined,
+  price: number,
   sizes: Array<string>
   updatedAt?: string
 }
