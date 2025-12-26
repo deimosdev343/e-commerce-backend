@@ -113,6 +113,7 @@ export const deleteDiscount = async (req: Request, res: Response): Promise<any> 
       return res.status(404).json({msg:"discount not found"});
     }
     await Discount.findOneAndDelete({discountId});
+    await Product.updateMany({discountId}, {$set:{discountId: null}});
     return res.status(200).json({msg:"Discount deleted Successfully"});
   } catch (err) {
     console.log(err);
