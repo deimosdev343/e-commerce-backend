@@ -6,6 +6,7 @@ export interface ProductType {
   extraImages: Array<string>,
   image: string,
   name: string,
+  discountId: string,
   price: number | undefined,
   sizes: Array<string>
   updatedAt?: string

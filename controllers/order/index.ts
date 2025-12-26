@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import Order from '../../Models/Order';
 import { ICartProduct, IProduct } from '../../Models/Product';
 import { createOrderStatistic, updateBuyCounter } from '../../serivces/Statistics/Statistics';
+import { ProductType } from '../../types/product/product';
 
 export const createOrder = async (req: Request, res: Response) : Promise<any> => {
    try {
@@ -32,4 +33,27 @@ export const createOrder = async (req: Request, res: Response) : Promise<any> =>
     return res.status(500).json({msg:"Internal Server Error"});
 
    }
+}
+
+
+export const calculateOrder = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const {products} : {products: Array<ProductType>} = req.body;
+    let productPrices:Array<{
+      type: "product" | "discount",
+      price: number | undefined
+    }> = [];
+
+    for(let i = 0; i< products.length; i++) {
+      productPrices.push({
+        type: "product",
+        price: products[i].price
+      })
+
+    }
+
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({msg:"Internal Server Error"});
+  }
 }
