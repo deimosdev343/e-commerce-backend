@@ -22,6 +22,6 @@ const orderValidation = z.object({
 });
 
 OrderRouter.post('/', validateData(orderValidation), createOrder);
-OrderRouter.post('/calculateOrder', validateData(zodProductSchema), calculateOrder);
+OrderRouter.post('/calculateOrder', validateData(orderValidation), calculateOrder);
 
 export default OrderRouter;
