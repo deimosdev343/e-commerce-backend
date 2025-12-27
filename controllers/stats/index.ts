@@ -90,6 +90,7 @@ export const getMostPurchasedProducts = async (req:Request, res: Response): Prom
             name: currProd.name,
             price: currProd.price.valueOf(),
             sizes: currProd.sizes,
+            discountId: ""
           } 
         });
       } 
@@ -124,6 +125,7 @@ export const getMostViewedProduct = async (req:Request, res:Response): Promise<a
             name: currProd.name,
             price: currProd.price.valueOf(),
             sizes: currProd.sizes,
+            discountId: ""
           } 
         });
       }

@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --import=tsx --watch index.ts",
     "prod": "node --import=tsx index.ts",
-    "tsc": ""
+    "build": "tsc --watch",
+    "start": "node dist/index.js"
   },
   "author": "",
   "license": "ISC",
