@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import Discount from '../../Models/Discount';
 import {v4} from 'uuid'
 import Product from '../../Models/Product';
+import { ProductType } from '/../types/product/product';
 
 
 export const getDiscount = async (req: Request, res: Response): Promise<any> => {
@@ -10,6 +11,25 @@ export const getDiscount = async (req: Request, res: Response): Promise<any> => 
     const {discountId} = req.query;
     const discount = await Discount.findOne({discountId});
     return res.status(200).json({discount});
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export const getDiscountsProducts = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const {discountId} = req.query;
+    const discount = await Discount.findOne({discountId});
+    if(!discount) {
+      return res.status(404).json({msg:"Discount doesn't exist"});
+    }
+    const products: Array<ProductType> = [];
+    for(let i = 0; i< discount.productIds.length; i++) {
+      const currProd = await Product.findById(discount.productIds[i]);
+      if(currProd) products.push(currProd);
+    }
+    return res.status(200).json(products);
+  
   } catch (err) {
     console.log(err);
   }
