@@ -6,6 +6,6 @@ services:
     container_name: ts_node_app
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "8000:8000"
     env_file:
       - .env
