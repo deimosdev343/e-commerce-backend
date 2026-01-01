@@ -1,14 +1,14 @@
 import express, { json, urlencoded } from "express";
-import ProductRouter from "./routes/products/ProductRouter.ts";
-import { connection } from "./db/connection.ts";
-import AuthRouter from "./routes/auth/AuthRouter.ts";
+import ProductRouter from "./routes/products/ProductRouter";
+import { connection } from "./db/connection";
+import AuthRouter from "./routes/auth/AuthRouter";
 
 import dotenv from 'dotenv';
-import OrderRouter from "./routes/orders/OrderRouter.ts";
-import CategoryRouter from "./routes/category/CategoryRouter.ts";
-import { initAdminFunc } from "./serivces/initAdmin.ts";
-import StatsRouter from "./routes/stats/StatsRouter.ts";
-import DiscountRouter from "./routes/discount/DiscountRouter.ts";
+import OrderRouter from "./routes/orders/OrderRouter";
+import CategoryRouter from "./routes/category/CategoryRouter";
+import { initAdminFunc } from "./serivces/initAdmin";
+import StatsRouter from "./routes/stats/StatsRouter";
+import DiscountRouter from "./routes/discount/DiscountRouter";
 dotenv.config();
 
 const port = process.env.PORT || 8000;

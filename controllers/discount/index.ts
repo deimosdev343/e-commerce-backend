@@ -1,9 +1,9 @@
 import dayjs from 'dayjs';
 import { Request, Response } from 'express';
-import Discount from '../../Models/Discount.ts';
+import Discount from '../../Models/Discount';
 import {v4} from 'uuid'
-import Product from '../../Models/Product.ts';
-import { ProductType } from '/../types/product/product.ts';
+import Product from '../../Models/Product';
+import { ProductType } from '/../types/product/product';
 
 
 export const getDiscount = async (req: Request, res: Response): Promise<any> => {

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { validateData } from '../../validation/validation.ts';
+import { validateData } from '../../validation/validation';
 
 import {z, ZodError} from 'zod';
 import { calculateOrder, createOrder } from '../../controllers/order';

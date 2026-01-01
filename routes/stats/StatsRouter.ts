@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { verifySeller, verifyToken } from '../../middleware/authMiddleware.ts';
+import { verifySeller, verifyToken } from '../../middleware/authMiddleware';
 import { 
   getLatestPurchases,
   getLatestViews,

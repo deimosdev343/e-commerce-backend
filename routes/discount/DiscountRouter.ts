@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { validateData, validateQueryParams } from '../../validation/validation.ts';
+import { validateData, validateQueryParams } from '../../validation/validation';
 import {z} from 'zod';
-import { verifyToken, verifySeller } from '../../middleware/authMiddleware.ts';
+import { verifyToken, verifySeller } from '../../middleware/authMiddleware';
 import { addItemToDiscount, createDiscount, deleteDiscount, editDiscount, getDiscount, getDiscounts, getDiscountsForClient, getDiscountsProducts, removeItemToDiscount } from '../../controllers/discount';
 import dayjs from 'dayjs';
 
