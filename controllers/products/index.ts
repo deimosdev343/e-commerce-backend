@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import Product from '../../Models/Product';
-import Category from '../../Models/Category';
-import { createViewStatistic, updateViewCounter } from '../../serivces/Statistics/Statistics';
+import Product from '../../Models/Product.ts';
+import Category from '../../Models/Category.ts';
+import { createViewStatistic, updateViewCounter } from '../../serivces/Statistics/Statistics.ts';
 
 
 const sortOptions = {

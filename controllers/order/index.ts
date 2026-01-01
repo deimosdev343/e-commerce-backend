@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import Order from '../../Models/Order';
-import { ICartProduct, IProduct } from '../../Models/Product';
-import { createOrderStatistic, updateBuyCounter } from '../../serivces/Statistics/Statistics';
-import { ProductType } from '../../types/product/product';
-import Discount from '../../Models/Discount';
+import Order from '../../Models/Order.ts';
+import { ICartProduct, IProduct } from '../../Models/Product.ts';
+import { createOrderStatistic, updateBuyCounter } from '../../serivces/Statistics/Statistics.ts';
+import { ProductType } from '../../types/product/product.ts';
+import Discount from '../../Models/Discount.ts';
 
 export const createOrder = async (req: Request, res: Response) : Promise<any> => {
    try {

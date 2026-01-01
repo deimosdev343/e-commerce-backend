@@ -10,7 +10,8 @@
     "skipLibCheck": true, // Skip type checking of declaration files
     "resolveJsonModule": true, // Include JSON imports
     "forceConsistentCasingInFileNames": true,
-    "noEmit": false, // Allow emitting output
+    "noEmit": true, // Allow emitting output
+    "allowImportingTsExtensions": true,
     "isolatedModules": true, // Required for using ESM modules
     "baseUrl": ".", // Allow absolute imports relative to project root
     "paths": {

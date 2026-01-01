@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { validateData } from '../../validation/validation';
-import { verifyToken } from '../../middleware/authMiddleware';
+import { validateData } from '../../validation/validation.ts';
+
 import {z, ZodError} from 'zod';
 import { calculateOrder, createOrder } from '../../controllers/order';
 

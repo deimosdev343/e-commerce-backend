@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import Stat from '../../Models/Stat';
-import Product, { IProduct } from '../../Models/Product';
-import ItemViewCount from '../../Models/ItemViewCount';
-import { ProductType } from '../../types/product/product';
-import ItemOrderCount from '../../Models/ItemOrderCount';
+import Product, { IProduct } from '../../Models/Product.ts';
+import ItemViewCount from '../../Models/ItemViewCount.ts';
+import { ProductType } from '../../types/product/product.ts';
+import ItemOrderCount from '../../Models/ItemOrderCount.ts';
 
 export const getLatestViews = async (req:Request, res:Response): Promise<any> => {
   try {

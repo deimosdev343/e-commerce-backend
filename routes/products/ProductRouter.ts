@@ -1,7 +1,7 @@
-import { validateData, validateQueryParams } from '../../validation/validation';
+import { validateData, validateQueryParams } from '../../validation/validation.ts';
 import { createProduct, deleteProduct, editProduct, getFeatured, getProductId, getProducts, setFeatured } from '../../controllers/products';
 import { Router } from 'express';
-import { verifySeller, verifyToken } from '../../middleware/authMiddleware';
+import { verifySeller, verifyToken } from '../../middleware/authMiddleware.ts';
 import {boolean, z, ZodError} from 'zod';
 
 const ProductRouter = Router();
