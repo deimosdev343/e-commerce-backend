@@ -22,7 +22,7 @@ COPY package*.json ./
 RUN npm ci --omit=dev
 
 # Copy compiled JS only
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app ./dist
 
 ENV NODE_ENV=production
 EXPOSE 8000
